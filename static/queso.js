@@ -2,36 +2,38 @@ var GraficoMaterial;
 var GraficoTemperatura;
 
 
+//instantiate the variables to graph with
 const MaterialParticulado = document.getElementById('MP').getContext('2d'); //
 
 const Temperatura = document.getElementById('TEMP').getContext('2d'); //
 
-//send image with telebot when button is press
 
+//create a layout for our graph
 var MaterialDatos = [
     {
         label: 'PM10',
-        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], //PM10 with a 24 hour history
+        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], //PM10 24 hour slots/points to graph at/history
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 2
     },
     {
         label: 'PM2.5',
-        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], //PM2.5, 24 hour history
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 2
     },
     {
         label: 'PM1',
-        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], //PM1
         backgroundColor: 'rgba(255, 206, 86, 0.2)',
         borderColor: 'rgba(255, 206, 86, 1)',
         borderWidth: 2
     }
 
 ];
+//layout for temp, predefining array size for the graph as well as other misc settings.
 var datos_TEMP = [
     {
         label: 'Temperatura',
@@ -42,7 +44,7 @@ var datos_TEMP = [
     }
     
 ];
-
+//set labels at predefined hours and fill the datasets in the graph with our previously created and obtained array data
 var info_MP = { //MP
     labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'],
     datasets: [MaterialDatos[0],
@@ -54,6 +56,7 @@ var info_TEMP = {   //labels for the x axis to show the time of the day variable
     datasets: [datos_TEMP[0]]
 };
 
+//base graph settings
 var options = {
     responsive: true,
     title: {
@@ -82,6 +85,8 @@ var options2 = {
         }]
     }
 };
+
+
 function AlmacenaDatos(dData) { // recibe los datos del sensor
     MaterialDatos[0].data= dData[0]; //PM10
     MaterialDatos[1].data= dData[1]; //PM2.5
@@ -105,6 +110,7 @@ $(document).ready(function() {
         data: info_TEMP,
         options: options2
     });
+    //ajax for our data in order to see what we are receiving
     $.ajax({
             url: "http://127.0.0.1:5000/data",
             method: "GET",
@@ -137,6 +143,7 @@ document.getElementById("graficomp").addEventListener("click", function(){
         data: img //the image
     });
 });     
+//repeated event listener for download here for our second, temperature graph
 document.getElementById("graficotemp").addEventListener("click", function(){ //same as the previous one
     var link = document.createElement('a');
     img = "a"
@@ -149,5 +156,3 @@ document.getElementById("graficotemp").addEventListener("click", function(){ //s
         data: img
     });
 }); 
-
-

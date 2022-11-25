@@ -7,10 +7,10 @@ sURL = 'http://127.0.0.1:5000/datos'
 
 def Generate():
     dData = {                       # Datos Ambientales
-        '01': [ra.randint(+5,+20)],  #   MP 1.0 ug/m3
-        '25': [ra.randint(+5,+20)],  #   MP 2.5 ug/m3
-        '10': [ra.randint(+5,+20)],  #   MP 10 ug/m3
-        'te': [ra.randint(-10,+10)]  #   Temperatura
+        '01': [ra.randint(+5,+20)for i in range(20)] ,  #   MP 1.0 ug/m3
+        '25': [ra.randint(+5,+20)for i in range(20)] ,  #   MP 2.5 ug/m3
+        '10': [ra.randint(+5,+20)for i in range(20)] ,  #   MP 10 ug/m3
+        'te': [ra.randint(-10,+10) for i in range(20)]   #   Temperatura
     }
     return dData
 
